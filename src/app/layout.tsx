@@ -4,6 +4,7 @@ import "./globals.css";
 import Footer from "@/components/layouts/Footer";
 import Navbar from "@/components/layouts/Navbar";
 import PlayerBar from "@/components/music/PlayerBar";
+import QueryClientProvider from "@/context/QueryClientProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,12 +31,14 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-      <div className="min-h-screen flex flex-col">
-        <Navbar />
-        <main className="flex-1 p-6">{children}</main>
-        <PlayerBar />
-        <Footer />
-      </div>
+        <QueryClientProvider>
+          <div className="min-h-screen flex flex-col">
+            <Navbar />
+            <main className="flex-1">{children}</main>
+            <Footer />
+            {/* <PlayerBar /> */}
+          </div>
+        </QueryClientProvider>
       </body>
     </html>
   );
