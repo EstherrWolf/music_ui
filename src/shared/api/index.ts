@@ -6,6 +6,7 @@ export class Api {
       headers: {
         "Content-Type": "application/json",
       },
+      withCredentials: true,
     });
   }
 }

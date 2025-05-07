@@ -1,23 +1,25 @@
 "use client";
 
-import {
-  Typography,
-  Button,
-  Divider,
-  Form,
-  Input,
-  Checkbox,
-} from "antd";
+import { Typography, Button, Divider, Form, Input, Checkbox } from "antd";
 import { GoogleOutlined } from "@ant-design/icons";
 import { LoginPayload, useLogin } from "@/hooks/auth/useLogin";
-import { validateEmail, validatePassword } from "@/utils/validation/validationUtils";
+import {
+  validateEmail,
+  validatePassword,
+} from "@/utils/validation/validationUtils";
+import { useRouter } from "next/navigation";
 
 export const LoginForm = () => {
   const { mutate, isPending } = useLogin();
+  const router = useRouter();
   const [form] = Form.useForm();
 
   const handleSubmit = (values: LoginPayload) => {
-    mutate(values);
+    mutate(values, {
+      onSuccess() {
+        router.replace("/");
+      },
+    });
   };
 
   return (
@@ -36,11 +38,7 @@ export const LoginForm = () => {
 
         <Divider>OR</Divider>
 
-        <Form
-          form={form}
-          layout="vertical"
-          onFinish={handleSubmit}
-        >
+        <Form form={form} layout="vertical" onFinish={handleSubmit}>
           <Form.Item label="Email" name="email" rules={validateEmail}>
             <Input placeholder="tripconnect@trip.vn" />
           </Form.Item>
