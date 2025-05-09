@@ -1,38 +1,39 @@
-name: Deploy to EC2
+name: CI/CD Deploy to EC2 (Next.js + Nginx)
 
 on:
   push:
     branches:
-      - master  # thay bằng nhánh bạn muốn deploy
+      - main
 
 jobs:
   deploy:
+    name: Build & Deploy
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repo
+      - name: 📥 Checkout source code
         uses: actions/checkout@v3
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
+      - name: 🔐 Setup SSH access to EC2
+        uses: webfactory/ssh-agent@v0.5.4
         with:
-          node-version: '18'  # hoặc version phù hợp với app
+          ssh-private-key: ${{ secrets.EC2_SSH_KEY }}
 
-      - name: Install dependencies
-        run: npm install
+      - name: 🧪 Run Lint & Build Test (local)
+        run: |
+          npm install
+          npm run lint
+          npm run build
 
-      - name: Build project
-        run: npm run build
+      - name: 🚚 Upload source to EC2
+        run: |
+          ssh -o StrictHostKeyChecking=no ec2-user@${{ secrets.EC2_HOST }} "rm -rf ~/music_ui && mkdir ~/music_ui"
+          scp -r ./* ec2-user@${{ secrets.EC2_HOST }}:~/music_ui/
 
-      - name: Deploy to EC2 via SSH
-        uses: appleboy/ssh-action@v0.1.6
-        with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ec2-user
-          key: ${{ secrets.EC2_SSH_KEY }}
-          port: 22
-          script: |
+      - name: 🚀 Rebuild Docker on EC2
+        run: |
+          ssh ec2-user@${{ secrets.EC2_HOST }} << 'EOF'
             cd ~/music_ui
-            git pull origin main
-            docker-compose down
-            docker-compose up -d --build
+            docker compose down
+            docker compose up --build -d
+          EOF
