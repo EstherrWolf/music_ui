@@ -1,4 +1,4 @@
-export const getStoredData = (data: string) => JSON.parse(data);
+export const getStorageData = (data: string) => JSON.parse(localStorage.getItem(data) || "{}");
 
 export const toStoredData = (data: unknown) => JSON.stringify(data);
 

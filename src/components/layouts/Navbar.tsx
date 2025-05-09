@@ -4,27 +4,23 @@ import Link from "next/link";
 import DarkModeToggle from "../common/DarkModeToggle";
 import { Button, Dropdown, MenuProps } from "antd";
 import { motion } from "framer-motion";
-import { useDispatch, useSelector } from "react-redux";
-import { selectAuthUser } from "@/providers/auth/selector/authSelector";
+import { useDispatch } from "react-redux";
 import { UserOutlined } from "@ant-design/icons";
 import { useEffect } from "react";
-import { useProfile } from "@/hooks/auth/useProfile";
+import { useProfileLocal } from "@/hooks/auth/useProfile";
 import { AppDispatch } from "@/providers/store";
 import { setUser } from "@/providers/auth/reducer/authSlice";
-
+import { isObjectEmpty } from "@/utils/isObjectEmpty";
 export default function Navbar() {
-  const user = useSelector(selectAuthUser);
   const dispatch = useDispatch<AppDispatch>();
-  const { data, isLoading } = useProfile();
-  
-  console.log(user, "user");
-  
+  const { user } = useProfileLocal();
+ 
   useEffect(() => {
-    if (data) {
-      console.log(data, "data from profile");
-      dispatch(setUser(data));
+    if (!isObjectEmpty(user)) {
+      console.log(user, "user from profile");
+      dispatch(setUser(user));
     }
-  }, [data]);
+  }, [user]);
 
   const renderHeaderLogin = () => {
     return (

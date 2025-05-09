@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
-
+import { getStorageData, setStorageData } from '@/shared/store'
 export function useTheme() {
   const [isDark, setIsDark] = useState(false)
 
   useEffect(() => {
-    const stored = localStorage.getItem('theme')
+    const stored = getStorageData('theme')
     if (stored === 'dark') {
       setIsDark(true)
       document.documentElement.classList.add('dark')
@@ -23,12 +23,12 @@ export function useTheme() {
 
     window.addEventListener('storage', handleStorageChange)
     return () => window.removeEventListener('storage', handleStorageChange)
-  }, [])
+  }, []) 
 
   const toggleTheme = () => {
     setIsDark(prev => {
       const newDark = !prev
-      localStorage.setItem('theme', newDark ? 'dark' : 'light')
+      setStorageData('theme', newDark ? 'dark' : 'light')
       document.documentElement.classList.toggle('dark', newDark)
       return newDark
     })
