@@ -12,7 +12,7 @@ const isAuthenticated = (): boolean => {
 
 const PrivateRoute: React.FC<PrivateRouteProps> = ({ children }) => {
   if (!isAuthenticated()) {
-    return <Link href={"/login"} replace />;
+    return <Link href={'/login'} replace />;
   }
 
   return <>{children}</>;

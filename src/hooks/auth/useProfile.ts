@@ -2,7 +2,6 @@ import { UserInfo } from "@/providers/auth/types/authType";
 import api from "@/shared/api";
 import { APP_URL } from "@/shared/constants/apiConstants";
 import { getStorageData } from "@/shared/store";
-import { isObjectEmpty } from "@/utils/isObjectEmpty";
 import { useQuery } from "@tanstack/react-query";
 
 const fetchUserProfile = async (): Promise<UserInfo> => {

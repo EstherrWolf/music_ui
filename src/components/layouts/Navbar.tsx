@@ -20,7 +20,7 @@ export default function Navbar() {
       console.log(user, "user from profile");
       dispatch(setUser(user));
     }
-  }, [user]);
+  }, [user, dispatch]);
 
   const renderHeaderLogin = () => {
     return (

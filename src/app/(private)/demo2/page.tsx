@@ -19,7 +19,7 @@ export default function LoginPage() {
           </div>
           <div className="mt-auto">
             <p className="mt-24 text-xl font-medium leading-relaxed">
-              "Optimize processes – Increase sales – Manage effectively from warehouse to customer."
+              &quot;Optimize processes – Increase sales – Manage effectively from warehouse to customer.&quot;
             </p>
           </div>
         </div>
@@ -96,7 +96,7 @@ export default function LoginPage() {
 
             <div className="mt-6 text-center text-sm">
               <p>
-                Don't have an account?{" "}
+                Don&apos;t have an account?{" "}
                 <Link href="/sign-up" className="text-blue-600 hover:underline">
                   Sign Up
                 </Link>

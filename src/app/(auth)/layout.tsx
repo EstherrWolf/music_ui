@@ -15,7 +15,7 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
     if (isAuthenticated) {
       redirect("/");
     }
-  }, []);
+  }, [isAuthenticated]);
 
   return <main className="auth-main">{children}</main>;
 }
