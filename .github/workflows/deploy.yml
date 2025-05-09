@@ -22,6 +22,7 @@ jobs:
       - name: 🧪 Run Lint & Build Test (local)
         run: |
           npm install
+          npm run lint
           npm run build
 
       - name: 🚚 Upload source to EC2

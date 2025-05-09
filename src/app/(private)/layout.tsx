@@ -7,7 +7,10 @@ interface PrivateRouteProps {
 }
 
 const isAuthenticated = (): boolean => {
-  return !!localStorage.getItem("theme");
+  if (typeof window !== 'undefined') {
+    return !!localStorage.getItem("theme");
+  }
+  return false
 };
 
 const PrivateRoute: React.FC<PrivateRouteProps> = ({ children }) => {

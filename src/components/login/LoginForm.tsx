@@ -2,12 +2,13 @@
 
 import { Typography, Button, Divider, Form, Input, Checkbox } from "antd";
 import { GoogleOutlined } from "@ant-design/icons";
-import { LoginPayload, useLogin } from "@/hooks/auth/useLogin";
+import { useLogin } from "@/hooks/auth/useLogin";
 import {
   validateEmail,
   validatePassword,
 } from "@/utils/validation/validationUtils";
 import { useRouter } from "next/navigation";
+import { LoginPayload } from "@/shared/api/auth.api";
 
 export const LoginForm = () => {
   const { mutate, isPending } = useLogin();

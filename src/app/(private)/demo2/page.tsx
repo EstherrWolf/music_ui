@@ -31,7 +31,7 @@ export default function LoginPage() {
         <div className="w-full max-w-md p-8">
           <div className="mb-8 text-center">
             <h2 className="text-2xl font-bold">Welcome Back</h2>
-            <p className="text-gray-600">Let's explore this exciting platform together!</p>
+            <p className="text-gray-600">Let&apos;s explore this exciting platform together!</p>
           </div>
 
           {/* Google login button */}
