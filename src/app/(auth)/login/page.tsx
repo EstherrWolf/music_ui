@@ -1,6 +1,9 @@
 import { LoginForm } from "@/components/login/LoginForm";
+import { RegisterForm } from "@/components/register/RegisterForm";
+import { useState } from "react";
 
 export default function LoginPage() {
+  const [isLoginFormVisible, setIsLoginFormVisible] = useState(true);
   return (
     <div className="min-h-[88vh] flex bg-[url('/login-bg.jpg')] bg-cover bg-center">
       <div className="w-1/2 relative hidden lg:flex">
@@ -16,7 +19,7 @@ export default function LoginPage() {
           </p>
         </div>
       </div>
-      <LoginForm />
+      {isLoginFormVisible ? <LoginForm /> : <RegisterForm />}
     </div>
   );
 }
